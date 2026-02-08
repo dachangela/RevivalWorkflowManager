@@ -1,11 +1,13 @@
 package com.revival.workflow.manager.model;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 
 @Entity
 public class Material {
@@ -13,19 +15,30 @@ public class Material {
     private Long id;
     private String name;
     private long totalQuantity;
-    private Date createdAt;
-    private Date lastUpdated;
+    private LocalDateTime createdAt;
+    private LocalDateTime lastUpdated;
 
     public Material() {
         // Default constructor
     }
 
-    public Material(Long id, String name, long totalQuantity, Date createdAt) {
+    public Material(Long id, String name, long totalQuantity, LocalDateTime createdAt) {
         this.id = id;
         this.name = name;
         this.totalQuantity = totalQuantity;
         this.createdAt = createdAt;
         this.lastUpdated = createdAt;
+    }
+
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDateTime.now();
+        lastUpdated = createdAt;
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        lastUpdated = LocalDateTime.now();
     }
 
     public Long getId() {
@@ -46,16 +59,16 @@ public class Material {
     public void setTotalQuantity(long totalQuantity) {
         this.totalQuantity = totalQuantity;
     }
-    public Date getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
-    public Date getLastUpdated() {
+    public LocalDateTime getLastUpdated() {
         return lastUpdated;
     }
-    public void setLastUpdated(Date lastUpdated) {
+    public void setLastUpdated(LocalDateTime lastUpdated) {
         this.lastUpdated = lastUpdated;
     }
 }

@@ -6,6 +6,9 @@ import org.springframework.stereotype.Repository;
 import com.revival.workflow.manager.model.WorkflowStep;
 @Repository // This annotation indicates that this class is a Spring Data repository and will be used to interact with the database.
 // The repository will be responsible for performing CRUD operations on WorkflowStep entities.
+
+
+// TODO: NOT SURE IF NEEDED, MAYBE JUST USE THE WORKFLOWSTEP REPOSITORY IN THE PRODUCT REPOSITORY
 public interface WorkflowStepRepository extends JpaRepository<WorkflowStep, Long> {
     // Define methods for CRUD operations on WorkflowStep entities
     // For example:
